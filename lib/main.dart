@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 
@@ -130,6 +132,16 @@ class _DetailsState extends State<Details> {
               SizedBox(height: 3),
               Text(widget.data['authors']),
               SizedBox(height: 15),
+              Center(
+                child: ElevatedButton(
+                    onPressed: () async {
+                      var url = Uri.parse(widget.data['url']);
+                      if (!await launchUrl(url)) {
+                        throw 'Could not launch $url';
+                      }
+                    },
+                    child: const Text("Go to website")),
+              ),
             ],
           ),
         ));
